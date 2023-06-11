@@ -22,6 +22,12 @@ class App extends Component {
       localStorage.setItem('contacts', JSON.stringify(contacts));
     }
   }
+<<<<<<< HEAD
+=======
+  componentWillUnmount() {
+    console.log('deleted');
+  }
+>>>>>>> refs/remotes/origin/main
   handleChangeFilter = evt => {
     const target = evt.target;
     this.setState({
