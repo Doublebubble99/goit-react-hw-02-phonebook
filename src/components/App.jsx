@@ -9,6 +9,19 @@ class App extends Component {
     contacts: [],
     filter: '',
   };
+  componentDidMount() {
+    const store = localStorage.getItem('contacts');
+    const parsedStorage = JSON.parse(store);
+    this.setState({
+      contacts: parsedStorage,
+    });
+  }
+  componentDidUpdate(_, prevState) {
+    const { contacts } = this.state;
+    if (prevState.contacts !== contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
+  }
   handleChangeFilter = evt => {
     const target = evt.target;
     this.setState({
@@ -43,7 +56,7 @@ class App extends Component {
     const { contacts, filter } = this.state;
     const filterNormalize = filter.toLowerCase();
     const existingName = contacts.filter(({ name }) =>
-      name.toLowerCase().includes(filterNormalize)
+      name.toLowerCase().includes(filterNormalize.trim())
     );
     return (
       <section>
